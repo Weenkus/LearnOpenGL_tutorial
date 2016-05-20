@@ -3,16 +3,23 @@
 #include <SDL/SDL.h>
 #include <GL/glew.h>
 
+void game_loop(SDL_Window* window);
+
+bool process_input();
+void render();
+void swap_buffer(SDL_Window* window);
+
+
 int main(int argc, char** argv) {
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	SDL_Window* window = SDL_CreateWindow(
-		"An SDL2 window",                  // window title
+		"LearnOpenGL",                  // window title
 		SDL_WINDOWPOS_UNDEFINED,           // initial x position
 		SDL_WINDOWPOS_UNDEFINED,           // initial y position
-		640,                               // width, in pixels
-		480,                               // height, in pixels
+		800,                               // width, in pixels
+		600,                               // height, in pixels
 		SDL_WINDOW_OPENGL                  // flags - see below
 		);
 
@@ -37,18 +44,52 @@ int main(int argc, char** argv) {
 	// Check the OpenGL version
 	std::printf("*** OpenGL Version: %s   ***\n", glGetString(GL_VERSION));
 
-	// Set the background to blue
-	glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 
 	// Turn on VSync (1) or turn off (0)
 	SDL_GL_SetSwapInterval(0);
 
+	glViewport(0, 0, 800, 600);
+
 	// Enable alfa blend
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
-	std::cout << "Hello!";
-	getchar();
+
+	game_loop(window);
+	atexit(SDL_Quit);
 
 	return 0;
 }
+
+void game_loop(SDL_Window* window) {
+	bool running = true;
+
+	while (running) {
+
+		running = process_input();
+		render();
+		swap_buffer(window);
+	}
+}
+
+bool process_input() {
+	SDL_Event event;
+
+	while (SDL_PollEvent(&event) != 0) {
+
+		switch (event.type) {
+		case SDL_KEYDOWN: if (event.key.keysym.sym == SDLK_ESCAPE)
+			return false;
+		}
+	}
+	return true;
+}
+
+void render() {
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void swap_buffer(SDL_Window* window) {
+	SDL_GL_SwapWindow(window);
+}
+
