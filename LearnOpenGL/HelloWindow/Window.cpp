@@ -52,7 +52,6 @@ int main(int argc, char** argv) {
 	// Check the OpenGL version
 	std::printf("*** OpenGL Version: %s   ***\n", glGetString(GL_VERSION));
 
-
 	// Turn on VSync (1) or turn off (0)
 	SDL_GL_SetSwapInterval(0);
 
@@ -78,7 +77,6 @@ void game_loop(SDL_Window* window, GLuint shader, GLuint VAO) {
 	bool running = true;
 
 	while (running) {
-
 		running = process_input();
 		render(shader, VAO);
 		swap_buffer(window);
@@ -119,9 +117,6 @@ GLuint init_shaders() {
 	const GLchar* vertexShaderSource = str_vert.c_str();
 	vert.close();
 
-	//cout << endl << "VERTEX SHADER: " << endl;
-	//cout << vertexShaderSource;
-
 	// Build and compile our shader program
 	// Vertex shader
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -142,9 +137,6 @@ GLuint init_shaders() {
 	const GLchar* fragmentShaderSource = str_frag.c_str();
 	frag.close();
 
-	//cout << endl << "FRAGMENT SHADER: " << endl;
-	//cout << fragmentShaderSource;
-
 	// Fragment shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
@@ -157,13 +149,11 @@ GLuint init_shaders() {
 		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
 	}
 
-
 	// Link shaders
 	GLuint shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
 	glAttachShader(shaderProgram, fragmentShader);
 	glLinkProgram(shaderProgram);
-
 
 	// Check for linking errors
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
