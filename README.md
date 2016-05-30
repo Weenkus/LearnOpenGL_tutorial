@@ -5,6 +5,7 @@ All code is written by me for one goal, and that is to learn OpenGL. Feel free t
 # Development Technologies
 * C++11/14
 * Visual Studio 15
+* OpenGL 4.5
 
 # Dependancies
 * SDL2 https://www.libsdl.org/
