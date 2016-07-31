@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Triangle", "HelloWindow\Hel
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Rectangle", "Rectangle\Rectangle.vcxproj", "{9EC00FC1-85D7-4467-A4FC-C3AC58DEB8B4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ColorTriangle", "ColorTriangle\ColorTriangle.vcxproj", "{900F0225-0718-4FB6-8818-DE0A4C4E8A06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{9EC00FC1-85D7-4467-A4FC-C3AC58DEB8B4}.Release|x64.Build.0 = Release|x64
 		{9EC00FC1-85D7-4467-A4FC-C3AC58DEB8B4}.Release|x86.ActiveCfg = Release|Win32
 		{9EC00FC1-85D7-4467-A4FC-C3AC58DEB8B4}.Release|x86.Build.0 = Release|Win32
+		{900F0225-0718-4FB6-8818-DE0A4C4E8A06}.Debug|x64.ActiveCfg = Debug|x64
+		{900F0225-0718-4FB6-8818-DE0A4C4E8A06}.Debug|x64.Build.0 = Debug|x64
+		{900F0225-0718-4FB6-8818-DE0A4C4E8A06}.Debug|x86.ActiveCfg = Debug|Win32
+		{900F0225-0718-4FB6-8818-DE0A4C4E8A06}.Debug|x86.Build.0 = Debug|Win32
+		{900F0225-0718-4FB6-8818-DE0A4C4E8A06}.Release|x64.ActiveCfg = Release|x64
+		{900F0225-0718-4FB6-8818-DE0A4C4E8A06}.Release|x64.Build.0 = Release|x64
+		{900F0225-0718-4FB6-8818-DE0A4C4E8A06}.Release|x86.ActiveCfg = Release|Win32
+		{900F0225-0718-4FB6-8818-DE0A4C4E8A06}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
