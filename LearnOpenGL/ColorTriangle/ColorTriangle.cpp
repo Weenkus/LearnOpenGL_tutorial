@@ -7,7 +7,6 @@
 #include <ctime>
 
 #include <SDL/SDL.h>
-
 #include <GL/glew.h>
 
 void game_loop(SDL_Window* window, GLuint shader, GLuint VAO);

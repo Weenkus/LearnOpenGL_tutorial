@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2015 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -106,10 +106,6 @@ typedef struct ANativeWindow ANativeWindow;
 typedef void *EGLSurface;
 #endif
 
-#if defined(SDL_VIDEO_DRIVER_VIVANTE)
-#include "SDL_egl.h"
-#endif
-
 /**
  *  These are the various supported windowing subsystems
  */
@@ -124,8 +120,7 @@ typedef enum
     SDL_SYSWM_WAYLAND,
     SDL_SYSWM_MIR,
     SDL_SYSWM_WINRT,
-    SDL_SYSWM_ANDROID,
-    SDL_SYSWM_VIVANTE
+    SDL_SYSWM_ANDROID
 } SDL_SYSWM_TYPE;
 
 /**
@@ -171,13 +166,6 @@ struct SDL_SysWMmsg
             int dummy;
             /* No UIKit window events yet */
         } uikit;
-#endif
-#if defined(SDL_VIDEO_DRIVER_VIVANTE)
-        struct
-        {
-            int dummy;
-            /* No Vivante window events yet */
-        } vivante;
 #endif
         /* Can't have an empty union */
         int dummy;
@@ -269,14 +257,6 @@ struct SDL_SysWMinfo
             ANativeWindow *window;
             EGLSurface surface;
         } android;
-#endif
-
-#if defined(SDL_VIDEO_DRIVER_VIVANTE)
-        struct
-        {
-            EGLNativeDisplayType display;
-            EGLNativeWindowType window;
-        } vivante;
 #endif
 
         /* Can't have an empty union */

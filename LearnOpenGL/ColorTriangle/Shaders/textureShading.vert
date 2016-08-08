@@ -1,7 +1,7 @@
-#version 450
+#version 400
 //The vertex shader operates on each vertex
 
-layout (location = 0) in vec3 position;
+in vec3 position;
 
 
 void main() {

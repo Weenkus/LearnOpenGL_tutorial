@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2015 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -186,20 +186,6 @@ extern "C" {
 #define SDL_HINT_VIDEO_X11_XRANDR           "SDL_VIDEO_X11_XRANDR"
 
 /**
- *  \brief  A variable controlling whether the X11 _NET_WM_PING protocol should be supported.
- *
- *  This variable can be set to the following values:
- *    "0"       - Disable _NET_WM_PING
- *    "1"       - Enable _NET_WM_PING
- *
- *  By default SDL will use _NET_WM_PING, but for applications that know they
- *  will not always be able to respond to ping requests in a timely manner they can
- *  turn it off to avoid the window manager thinking the app is hung.
- *  The hint is checked in CreateWindow.
- */
-#define SDL_HINT_VIDEO_X11_NET_WM_PING      "SDL_VIDEO_X11_NET_WM_PING"
-
-/**
  *  \brief  A variable controlling whether the window frame and title bar are interactive when the cursor is hidden 
  *
  *  This variable can be set to the following values:
@@ -369,7 +355,7 @@ extern "C" {
 *  Use this hint in case you need to set SDL's threads stack size to other than the default.
 *  This is specially useful if you build SDL against a non glibc libc library (such as musl) which
 *  provides a relatively small default thread stack size (a few kilobytes versus the default 8MB glibc uses).
-*  Support for this hint is currently available only in the pthread, Windows, and PSP backend.
+*  Support for this hint is currently available only in the pthread backend.
 */
 #define SDL_HINT_THREAD_STACK_SIZE              "SDL_THREAD_STACK_SIZE"
 
@@ -546,13 +532,6 @@ extern "C" {
 *
 */
 #define SDL_HINT_MAC_BACKGROUND_APP    "SDL_MAC_BACKGROUND_APP"
-
-/**
- *  \brief Allow mouse click events when clicking to focus an SDL window
- *
- *  This hint only applies to Mac OS X.
- */
-#define SDL_HINT_MAC_MOUSE_FOCUS_CLICKTHROUGH "SDL_MAC_MOUSE_FOCUS_CLICKTHROUGH"
 
 /**
  * \brief Android APK expansion main file version. Should be a string number like "1", "2" etc.
