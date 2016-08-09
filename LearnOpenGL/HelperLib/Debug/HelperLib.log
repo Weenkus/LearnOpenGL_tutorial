@@ -1,5 +1,13 @@
-﻿Build started 8.8.2016. 14:47:46.
+﻿Build started 9.8.2016. 9:13:20.
+     1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\HelperLib\HelperLib.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         E:\Programming\IDE\Visual Studio 2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D HELPERLIB_EXPORTS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\HelperLib.pdb" /Gd /TP /analyze- /errorReport:prompt Shader.cpp
+         Shader.cpp
+       Lib:
+         E:\Programming\IDE\Visual Studio 2015\VC\bin\Lib.exe /OUT:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\HelperLib.lib" /NOLOGO Debug\Shader.obj
+         HelperLib.vcxproj -> E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\HelperLib.lib
+     1>Done Building Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\HelperLib\HelperLib.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.22
+Time Elapsed 00:00:01.19
