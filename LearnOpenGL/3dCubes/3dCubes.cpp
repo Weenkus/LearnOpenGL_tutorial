@@ -22,7 +22,7 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 void game_loop(SDL_Window* window, HelperLib::Shader shader, GLuint VAO, GLuint texture);
 
 bool process_input();
-void render(HelperLib::Shader shader, GLuint VAO, GLuint texture);
+void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]);
 void swap_buffer(SDL_Window* window);
 GLuint init_cubes();
 GLuint init_texture();
@@ -89,9 +89,15 @@ int main(int argc, char** argv) {
 void game_loop(SDL_Window* window, HelperLib::Shader shader, GLuint VAO, GLuint texture) {
 	bool running = true;
 
+	int rnd_nums[10];
+	srand(time(NULL));
+	for (int i{ 0 }; i < 10; i++) 
+		rnd_nums[i] = rand() % 360 + 1;
+		
+
 	while (running) {
 		running = process_input();
-		render(shader, VAO, texture);
+		render(shader, VAO, texture, rnd_nums);
 		swap_buffer(window);
 	}
 }
@@ -109,7 +115,7 @@ bool process_input() {
 	return true;
 }
 
-void render(HelperLib::Shader shader, GLuint VAO, GLuint texture) {
+void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]) {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -147,13 +153,15 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture) {
 
 	glBindVertexArray(VAO);
 	glColor3f(1.0, 1.0, 1.0);
+	
 	for (GLuint i = 0; i < 10; i++)
 	{
 		// Calculate the model matrix for each object and pass it to shader before drawing
 		glm::mat4 model;
 		model = glm::translate(model, cubePositions[i]);
-		GLfloat angle = 20.0f * i;
-		model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
+		GLfloat angle = 2.0f * i * rnd_nums[i];
+		model = glm::rotate(model, angle * clock()/2000000, glm::vec3(1.0f, 0.3f, 0.5f));
+
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
