@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelperLib", "HelperLib\Help
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Texture", "Texture\Texture.vcxproj", "{6B5BF446-E282-4066-BFC3-8015B1C06291}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3dCubes", "3dCubes\3dCubes.vcxproj", "{6E4E6C68-D6C0-4BD5-B2B6-A9AEB6C9D082}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{6B5BF446-E282-4066-BFC3-8015B1C06291}.Release|x64.Build.0 = Release|x64
 		{6B5BF446-E282-4066-BFC3-8015B1C06291}.Release|x86.ActiveCfg = Release|Win32
 		{6B5BF446-E282-4066-BFC3-8015B1C06291}.Release|x86.Build.0 = Release|Win32
+		{6E4E6C68-D6C0-4BD5-B2B6-A9AEB6C9D082}.Debug|x64.ActiveCfg = Debug|x64
+		{6E4E6C68-D6C0-4BD5-B2B6-A9AEB6C9D082}.Debug|x64.Build.0 = Debug|x64
+		{6E4E6C68-D6C0-4BD5-B2B6-A9AEB6C9D082}.Debug|x86.ActiveCfg = Debug|Win32
+		{6E4E6C68-D6C0-4BD5-B2B6-A9AEB6C9D082}.Debug|x86.Build.0 = Debug|Win32
+		{6E4E6C68-D6C0-4BD5-B2B6-A9AEB6C9D082}.Release|x64.ActiveCfg = Release|x64
+		{6E4E6C68-D6C0-4BD5-B2B6-A9AEB6C9D082}.Release|x64.Build.0 = Release|x64
+		{6E4E6C68-D6C0-4BD5-B2B6-A9AEB6C9D082}.Release|x86.ActiveCfg = Release|Win32
+		{6E4E6C68-D6C0-4BD5-B2B6-A9AEB6C9D082}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
