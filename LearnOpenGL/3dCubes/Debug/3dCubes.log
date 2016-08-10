@@ -1,4 +1,4 @@
-﻿Build started 9.8.2016. 19:27:17.
+﻿Build started 10.8.2016. 8:35:23.
      1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\3dCubes\3dCubes.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          E:\Programming\IDE\Visual Studio 2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt 3dCubes.cpp
@@ -15,4 +15,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.39
+Time Elapsed 00:00:03.00
