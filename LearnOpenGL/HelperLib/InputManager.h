@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <glm/vec2.hpp>
 
 namespace HelperLib {
 
@@ -9,6 +10,8 @@ namespace HelperLib {
 	public:
 		InputManager();
 		~InputManager();
+
+		void setMouseCoords(float x, float y);
 
 		void update();
 
@@ -24,7 +27,7 @@ namespace HelperLib {
 		bool isKeyDown(unsigned int keyID);
 
 	private:
-
+		glm::vec2 _mouseCoords;
 		std::unordered_map<unsigned int, bool> _keyMap;
 		std::unordered_map<unsigned int, bool> _previousKeyMap;
 		

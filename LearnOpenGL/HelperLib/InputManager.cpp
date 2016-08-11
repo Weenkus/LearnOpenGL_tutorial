@@ -11,6 +11,11 @@ namespace HelperLib {
 	{
 	}
 
+	void InputManager::setMouseCoords(float x, float y) {
+		_mouseCoords.x = x;
+		_mouseCoords.y = y;
+	}
+
 	void InputManager::update()
 	{
 		// Loop through keyMap using foreach and copy it over to _previousKeyMap

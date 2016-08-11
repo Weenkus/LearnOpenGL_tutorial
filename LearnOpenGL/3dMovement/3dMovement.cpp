@@ -15,13 +15,28 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <HelperLib/Shader.h>
+#include <HelperLib/InputManager.h>
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 
-void game_loop(SDL_Window* window, HelperLib::Shader shader, GLuint VAO, GLuint texture);
+// Camera
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+GLfloat yaw = -90.0f;	// Yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right (due to how Eular angles work) so we initially rotate a bit to the left.
+GLfloat pitch = 0.0f;
+GLfloat lastX = WIDTH / 2.0;
+GLfloat lastY = HEIGHT / 2.0;
+GLfloat fov = 45.0f;
 
-bool process_input();
+// Deltatime
+GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
+GLfloat lastFrame = 0.0f;  	// Time of last frame
+
+void game_loop(SDL_Window* window, HelperLib::Shader shader, GLuint VAO, GLuint texture, HelperLib::InputManager& inputManager);
+
+bool process_input(HelperLib::InputManager& inputManager);
 void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]);
 void swap_buffer(SDL_Window* window);
 GLuint init_cubes();
@@ -80,13 +95,15 @@ int main(int argc, char** argv) {
 	GLuint VAO = init_cubes();
 	GLuint texutre = init_texture();
 
-	game_loop(window, shader, VAO, texutre);
+	HelperLib::InputManager inputManager;
+
+	game_loop(window, shader, VAO, texutre, inputManager);
 	atexit(SDL_Quit);
 
 	return 0;
 }
 
-void game_loop(SDL_Window* window, HelperLib::Shader shader, GLuint VAO, GLuint texture) {
+void game_loop(SDL_Window* window, HelperLib::Shader shader, GLuint VAO, GLuint texture, HelperLib::InputManager& inputManager) {
 	bool running = true;
 
 	int rnd_nums[10];
@@ -96,23 +113,51 @@ void game_loop(SDL_Window* window, HelperLib::Shader shader, GLuint VAO, GLuint 
 
 
 	while (running) {
-		running = process_input();
+		GLfloat currentFrame = clock();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
+
+		running = process_input(inputManager);
 		render(shader, VAO, texture, rnd_nums);
 		swap_buffer(window);
 	}
 }
 
-bool process_input() {
+bool process_input(HelperLib::InputManager& inputManager) {
 	SDL_Event event;
 
 	while (SDL_PollEvent(&event) != 0) {
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) 
+			return false;
 
 		switch (event.type) {
 			case SDL_KEYDOWN: 
-				if (event.key.keysym.sym == SDLK_ESCAPE) return false;
-
+				inputManager.pressKey(event.key.keysym.sym);
+				break;
+			case SDL_KEYUP:
+				inputManager.releaseKey(event.key.keysym.sym);
+				break;
 		}
+
 	}
+
+
+	GLfloat cameraSpeed = 0.005f * deltaTime;
+	GLfloat turnSpeed = 0.002f * deltaTime;
+	if (inputManager.isKeyDown(SDLK_w)) 
+		cameraPos += cameraSpeed * cameraFront;
+	if (inputManager.isKeyDown(SDLK_s))
+		cameraPos -= cameraSpeed * cameraFront;
+	if (inputManager.isKeyDown(SDLK_a))
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (inputManager.isKeyDown(SDLK_d))
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (inputManager.isKeyDown(SDLK_q))
+		cameraFront.x -= turnSpeed;
+	if (inputManager.isKeyDown(SDLK_e))
+		cameraFront.x += turnSpeed;
+
 	return true;
 }
 
@@ -125,9 +170,9 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 
 	// Create transformations
 	glm::mat4 view;
+	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 	glm::mat4 projection;
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-	projection = glm::perspective(45.0f, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+	projection = glm::perspective(fov, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 	// Get their uniform location
 	GLint modelLoc = glGetUniformLocation(shader.Program, "model");
 	GLint viewLoc = glGetUniformLocation(shader.Program, "view");
@@ -174,7 +219,6 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 void swap_buffer(SDL_Window* window) {
 	SDL_GL_SwapWindow(window);
 }
-
 
 GLuint init_cubes() {
 	// Set up vertex data (and buffer(s)) and attribute pointers
