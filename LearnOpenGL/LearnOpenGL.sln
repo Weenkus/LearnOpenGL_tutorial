@@ -16,6 +16,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3dCubes", "3dCubes\3dCubes.vcxproj", "{6E4E6C68-D6C0-4BD5-B2B6-A9AEB6C9D082}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3dMovement", "3dMovement\3dMovement.vcxproj", "{6D2A8977-C23F-4949-9AE3-794DE262E9DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C638AE95-D350-44D2-9814-90FD4D3E99AA} = {C638AE95-D350-44D2-9814-90FD4D3E99AA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

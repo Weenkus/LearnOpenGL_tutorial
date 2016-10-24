@@ -1,0 +1,16 @@
+﻿Build started 24.10.2016. 21:23:54.
+     1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\HelperLib\HelperLib.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         E:\Programming\IDE\Visual Studio 2015\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _WINDOWS /D _USRDLL /D HELPERLIB_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt InputManager.cpp Shader.cpp
+         Shader.cpp
+         InputManager.cpp
+         Generating Code...
+       Link:
+         E:\Programming\IDE\Visual Studio 2015\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\x64\Debug\HelperLib.dll" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib glew32s.lib glew32.lib SOIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\x64\Debug\HelperLib.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\x64\Debug\HelperLib.lib" /MACHINE:X64 /DLL x64\Debug\InputManager.obj
+         x64\Debug\Shader.obj
+         HelperLib.vcxproj -> E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\x64\Debug\HelperLib.dll
+     1>Done Building Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\HelperLib\HelperLib.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.60

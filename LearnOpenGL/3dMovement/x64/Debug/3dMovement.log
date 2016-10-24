@@ -1,0 +1,32 @@
+﻿Build started 24.10.2016. 21:27:52.
+     1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\3dMovement\3dMovement.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         E:\Programming\IDE\Visual Studio 2015\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\x64\Debug\3dMovement.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib glew32s.lib glew32.lib SOIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\x64\Debug\3dMovement.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\x64\Debug\3dMovement.lib" /MACHINE:X64 x64\Debug\3dMovement.obj
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glBindTexture referenced in function "unsigned int __cdecl init_texture(void)" (?init_texture@@YAIXZ)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glBlendFunc referenced in function SDL_main
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glClear referenced in function "void __cdecl render(class HelperLib::Shader,unsigned int,unsigned int,int * const)" (?render@@YAXVShader@HelperLib@@IIQEAH@Z)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glClearColor referenced in function "void __cdecl render(class HelperLib::Shader,unsigned int,unsigned int,int * const)" (?render@@YAXVShader@HelperLib@@IIQEAH@Z)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glColor3f referenced in function "void __cdecl render(class HelperLib::Shader,unsigned int,unsigned int,int * const)" (?render@@YAXVShader@HelperLib@@IIQEAH@Z)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glDrawArrays referenced in function "void __cdecl render(class HelperLib::Shader,unsigned int,unsigned int,int * const)" (?render@@YAXVShader@HelperLib@@IIQEAH@Z)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glEnable referenced in function SDL_main
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glGenTextures referenced in function "unsigned int __cdecl init_texture(void)" (?init_texture@@YAIXZ)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glGetString referenced in function SDL_main
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glTexImage2D referenced in function "unsigned int __cdecl init_texture(void)" (?init_texture@@YAIXZ)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glTexParameteri referenced in function "unsigned int __cdecl init_texture(void)" (?init_texture@@YAIXZ)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol __imp_glViewport referenced in function SDL_main
+     1>3dMovement.obj : error LNK2019: unresolved external symbol SOIL_load_image referenced in function "unsigned int __cdecl init_texture(void)" (?init_texture@@YAIXZ)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol SOIL_free_image_data referenced in function "unsigned int __cdecl init_texture(void)" (?init_texture@@YAIXZ)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol "public: __cdecl HelperLib::Shader::Shader(char const *,char const *)" (??0Shader@HelperLib@@QEAA@PEBD0@Z) referenced in function SDL_main
+     1>3dMovement.obj : error LNK2019: unresolved external symbol "public: void __cdecl HelperLib::Shader::Use(void)" (?Use@Shader@HelperLib@@QEAAXXZ) referenced in function "void __cdecl render(class HelperLib::Shader,unsigned int,unsigned int,int * const)" (?render@@YAXVShader@HelperLib@@IIQEAH@Z)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol "public: __cdecl HelperLib::InputManager::InputManager(void)" (??0InputManager@HelperLib@@QEAA@XZ) referenced in function SDL_main
+     1>3dMovement.obj : error LNK2019: unresolved external symbol "public: __cdecl HelperLib::InputManager::~InputManager(void)" (??1InputManager@HelperLib@@QEAA@XZ) referenced in function SDL_main
+     1>3dMovement.obj : error LNK2019: unresolved external symbol "public: void __cdecl HelperLib::InputManager::pressKey(unsigned int)" (?pressKey@InputManager@HelperLib@@QEAAXI@Z) referenced in function "bool __cdecl process_input(class HelperLib::InputManager &)" (?process_input@@YA_NAEAVInputManager@HelperLib@@@Z)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol "public: void __cdecl HelperLib::InputManager::releaseKey(unsigned int)" (?releaseKey@InputManager@HelperLib@@QEAAXI@Z) referenced in function "bool __cdecl process_input(class HelperLib::InputManager &)" (?process_input@@YA_NAEAVInputManager@HelperLib@@@Z)
+     1>3dMovement.obj : error LNK2019: unresolved external symbol "public: bool __cdecl HelperLib::InputManager::isKeyDown(unsigned int)" (?isKeyDown@InputManager@HelperLib@@QEAA_NI@Z) referenced in function "bool __cdecl process_input(class HelperLib::InputManager &)" (?process_input@@YA_NAEAVInputManager@HelperLib@@@Z)
+     1>E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\deps/lib/SOIL.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+     1>E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\x64\Debug\3dMovement.exe : fatal error LNK1120: 21 unresolved externals
+     1>Done Building Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\3dMovement\3dMovement.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.20

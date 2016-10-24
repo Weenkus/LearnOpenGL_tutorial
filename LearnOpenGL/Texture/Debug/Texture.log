@@ -1,17 +1,13 @@
-﻿Build started 9.8.2016. 17:45:19.
-     1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Texture\Texture.vcxproj" on node 2 (Build target(s)).
+﻿Build started 24.10.2016. 21:33:25.
+     1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Texture\Texture.vcxproj" on node 5 (Rebuild target(s)).
      1>ClCompile:
          E:\Programming\IDE\Visual Studio 2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Texture.cpp
          Texture.cpp
        Link:
          E:\Programming\IDE\Visual Studio 2015\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\Texture.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib opengl32.lib glew32.lib SOIL.lib HelperLib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\Texture.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\Texture.lib" /MACHINE:X86 Debug\Texture.obj
-     1>SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\SOIL.pdb'; linking object as if no debug info
-     1>SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\SOIL.pdb'; linking object as if no debug info
-     1>SOIL.lib(SOIL.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(SOIL.obj)' or at 'E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\SOIL.pdb'; linking object as if no debug info
-     1>SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\SOIL.pdb'; linking object as if no debug info
-         Texture.vcxproj -> E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\Texture.exe
-     1>Done Building Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Texture\Texture.vcxproj" (Build target(s)).
+     1>LINK : fatal error LNK1104: cannot open file 'HelperLib.lib'
+     1>Done Building Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Texture\Texture.vcxproj" (Rebuild target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:01.12
+Time Elapsed 00:00:01.34
