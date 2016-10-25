@@ -27,9 +27,12 @@ std::vector<glm::vec3> FileParser::extract_points(std::string file_path)
 	while (std::getline(file_handle, line))
 	{
 		std::vector<std::string> numbers = split(line, ' ');
-		double x = std::stod(numbers[0]);
-		double y = std::stod(numbers[1]);
-		double z = std::stod(numbers[2]);
+
+		if (numbers[0] != "v") continue;
+
+		double x = std::stod(numbers[1]);
+		double y = std::stod(numbers[2]);
+		double z = std::stod(numbers[3]);
 		glm::vec3 point(x, y, z);
 		points.push_back(point);
 	}

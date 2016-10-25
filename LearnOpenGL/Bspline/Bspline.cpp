@@ -42,6 +42,12 @@ std::vector<glm::vec3> movement;
 GLfloat path_thickness{ 3.0f };
 GLuint VBO_path, VAO_path;
 
+// Object
+GLuint VBO_obj, VAO_obj;
+int obj_vert_num;
+std::vector<glm::vec3> obj_vertexies;
+
+
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
@@ -105,7 +111,7 @@ int main(int argc, char** argv) {
 	HelperLib::Shader shader("Shaders/textureShading.vert", "Shaders/textureShading.frag");
 
 	// Read movement curve points
-	movement = FileParser::extract_points("assets/movement/path.txt");
+	movement = FileParser::extract_points("assets/movement/path.obj");
 	num_of_movement_points = movement.size();
 
 	// Cubes
@@ -233,12 +239,39 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 		movement[(current_movment_point + 3) % num_of_movement_points]
 	);
 
-	//cout << current_movment_point << endl;
-	//cout << glm::to_string(a) << endl;
+	//glBindVertexArray(VAO);
+	//{
+	//	glColor3f(1.0, 1.0, 1.0);
+	//	glm::vec3 direction = b_spline_direction(
+	//		t,
+	//		movement[current_movment_point % num_of_movement_points],
+	//		movement[(current_movment_point + 1) % num_of_movement_points],
+	//		movement[(current_movment_point + 2) % num_of_movement_points],
+	//		movement[(current_movment_point + 3) % num_of_movement_points]
+	//	);
 
-	glBindVertexArray(VAO);
+	//	
+	//	// Calculate the model matrix for each object and pass it to shader before drawing
+	//	glm::mat4 model;
+	//	model = glm::translate(model, a);
+	//	model = glm::rotate(model, 0.5f, direction);
+	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	//	glDrawArrays(GL_TRIANGLES, 0, 36);
+	//	
+	//}
+	//glBindVertexArray(0);
+
+	glBindVertexArray(VAO_path);
 	{
-		glColor3f(1.0, 1.0, 1.0);
+		glm::mat4 model;
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_LINE_LOOP, 0, curve_points);
+	}
+	glBindVertexArray(0);
+
+
+	glBindVertexArray(VAO_obj);
+	{
 		glm::vec3 direction = b_spline_direction(
 			t,
 			movement[current_movment_point % num_of_movement_points],
@@ -247,26 +280,15 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 			movement[(current_movment_point + 3) % num_of_movement_points]
 		);
 
-		for (GLuint i{ 9 }; i < 10; ++i)
-		{
-			// Calculate the model matrix for each object and pass it to shader before drawing
-			glm::mat4 model;
-			GLfloat angle = 2.0f * i * rnd_nums[i];
-			model = glm::translate(model, a);
-			model = glm::rotate(model, 0.5f, direction);
-
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
-	}
-	glBindVertexArray(0);
-
-	glBindVertexArray(VAO_path);
-	{
+		
+		// Calculate the model matrix for each object and pass it to shader before drawing
 		glm::mat4 model;
+		model = glm::translate(model, a);
+		model = glm::rotate(model, 0.5f, direction);
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_LINE_LOOP, 0, curve_points);
+		glDrawArrays(GL_TRIANGLES, 0, obj_vertexies.size() * 3);
+		
 	}
 	glBindVertexArray(0);
 }
@@ -366,6 +388,22 @@ GLuint init_cubes() {
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, VBO_path);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * curve.size(), &curve.front(), GL_STATIC_DRAW);
+
+		// Position attribute
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+		glEnableVertexAttribArray(0);
+	}
+	// Unbind VAO
+	glBindVertexArray(0);
+
+	glGenVertexArrays(1, &VAO_obj);
+	glGenBuffers(1, &VBO_obj);
+	obj_vertexies = FileParser::extract_points("assets/objects/cube.obj");
+	// Bind VAO
+	glBindVertexArray(VAO_obj);
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, VBO_obj);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * obj_vertexies.size(), &obj_vertexies.front(), GL_STATIC_DRAW);
 
 		// Position attribute
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
