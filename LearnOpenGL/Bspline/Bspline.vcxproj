@@ -123,15 +123,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Image Include="..\3dMovement\assets\textures\container.jpg" />
-    <Image Include="..\3dMovement\assets\textures\derpina.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\3dMovement\shaders\textureShading.frag" />
-    <None Include="..\3dMovement\shaders\textureShading.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Bspline.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\textureShading.frag" />
+    <None Include="shaders\textureShading.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\container.jpg" />
+    <Image Include="assets\textures\ghosty.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\movement\path.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

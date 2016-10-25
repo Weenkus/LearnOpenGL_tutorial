@@ -152,10 +152,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FileParser.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Shader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FileParser.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>

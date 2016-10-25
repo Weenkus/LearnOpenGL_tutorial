@@ -1,16 +1,15 @@
-﻿Build started 24.10.2016. 21:33:25.
-     1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\HelperLib\HelperLib.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 25.10.2016. 12:21:30.
+     1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\HelperLib\HelperLib.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         E:\Programming\IDE\Visual Studio 2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D HELPERLIB_EXPORTS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\HelperLib.pdb" /Gd /TP /analyze- /errorReport:prompt InputManager.cpp Shader.cpp
-         Shader.cpp
-         InputManager.cpp
-         Generating Code...
+         E:\Programming\IDE\Visual Studio 2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D HELPERLIB_EXPORTS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\HelperLib.pdb" /Gd /TP /analyze- /errorReport:prompt FileParser.cpp
+         FileParser.cpp
        Lib:
-         E:\Programming\IDE\Visual Studio 2015\VC\bin\Lib.exe /OUT:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\HelperLib.lib" /NOLOGO Debug\InputManager.obj
+         E:\Programming\IDE\Visual Studio 2015\VC\bin\Lib.exe /OUT:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\HelperLib.lib" /NOLOGO Debug\FileParser.obj
+         Debug\InputManager.obj
          Debug\Shader.obj
          HelperLib.vcxproj -> E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\HelperLib.lib
-     1>Done Building Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\HelperLib\HelperLib.vcxproj" (Rebuild target(s)).
+     1>Done Building Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\HelperLib\HelperLib.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.90
+Time Elapsed 00:00:01.03

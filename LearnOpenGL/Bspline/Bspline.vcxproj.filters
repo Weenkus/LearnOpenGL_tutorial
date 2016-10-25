@@ -13,35 +13,43 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="assets">
-      <UniqueIdentifier>{7c79b812-0b1a-46ad-bf31-bfbf6ad54f0f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="shaders">
-      <UniqueIdentifier>{7a82eee6-08dd-4186-ba98-9700bbcd6c1a}</UniqueIdentifier>
+      <UniqueIdentifier>{77f73b42-05ad-4ac8-82f9-e09df3f85d7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{f516cdfe-3c94-48a2-8d74-c45ff5620ce2}</UniqueIdentifier>
     </Filter>
     <Filter Include="assets\textures">
-      <UniqueIdentifier>{3b3ff489-25ae-4450-994b-23c5db61c11d}</UniqueIdentifier>
+      <UniqueIdentifier>{bf23cf97-5bbb-4f75-981c-5496cbb011ad}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\3dMovement\assets\textures\container.jpg">
-      <Filter>assets\textures</Filter>
-    </Image>
-    <Image Include="..\3dMovement\assets\textures\derpina.jpg">
-      <Filter>assets\textures</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\3dMovement\shaders\textureShading.frag">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="..\3dMovement\shaders\textureShading.vert">
-      <Filter>shaders</Filter>
-    </None>
+    <Filter Include="assets\movement">
+      <UniqueIdentifier>{29f03d0a-a11f-4411-936a-32b235060f01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bspline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\textureShading.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\textureShading.vert">
+      <Filter>shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\container.jpg">
+      <Filter>assets\textures</Filter>
+    </Image>
+    <Image Include="assets\textures\ghosty.jpg">
+      <Filter>assets\textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\movement\path.txt">
+      <Filter>assets\movement</Filter>
+    </Text>
   </ItemGroup>
 </Project>

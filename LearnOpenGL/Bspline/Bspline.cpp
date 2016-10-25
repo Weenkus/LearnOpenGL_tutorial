@@ -13,9 +13,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 #include <HelperLib/Shader.h>
 #include <HelperLib/InputManager.h>
+#include <HelperLib/FileParser.h>
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -30,6 +32,12 @@ GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 GLfloat fov = 45.0f;
 
+// Movement
+int current_movment_point{ 0 };
+int num_of_movement_points;
+double movment_granularity{ 0.001 };
+std::vector<glm::vec3> movement;
+
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
@@ -37,10 +45,11 @@ GLfloat lastFrame = 0.0f;  	// Time of last frame
 void game_loop(SDL_Window* window, HelperLib::Shader shader, GLuint VAO, GLuint texture, HelperLib::InputManager& inputManager);
 
 bool process_input(HelperLib::InputManager& inputManager);
-void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]);
+void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[], double t);
 void swap_buffer(SDL_Window* window);
 GLuint init_cubes();
 GLuint init_texture();
+glm::vec3 Bspline(double t, glm::vec3 r0, glm::vec3 r1, glm::vec3 r2, glm::vec3 r3);
 
 using namespace std;
 
@@ -97,6 +106,10 @@ int main(int argc, char** argv) {
 
 	HelperLib::InputManager inputManager;
 
+	// Read movement curve points
+	movement = FileParser::extract_points("assets/movement/path.txt");
+	num_of_movement_points = movement.size();
+
 	game_loop(window, shader, VAO, texutre, inputManager);
 	atexit(SDL_Quit);
 
@@ -111,7 +124,7 @@ void game_loop(SDL_Window* window, HelperLib::Shader shader, GLuint VAO, GLuint 
 	for (int i{ 0 }; i < 10; i++)
 		rnd_nums[i] = rand() % 360 + 1;
 
-
+	double t = 0;
 	while (running) {
 		GLfloat currentFrame = clock();
 		deltaTime = currentFrame - lastFrame;
@@ -119,7 +132,15 @@ void game_loop(SDL_Window* window, HelperLib::Shader shader, GLuint VAO, GLuint 
 
 
 		running = process_input(inputManager);
-		render(shader, VAO, texture, rnd_nums);
+
+		if (t > 1) {
+			t = 0;
+			current_movment_point = (current_movment_point + 1) % num_of_movement_points;
+		} else {
+			t += movment_granularity;
+		}
+
+		render(shader, VAO, texture, rnd_nums, t);
 		swap_buffer(window);
 	}
 }
@@ -161,7 +182,7 @@ bool process_input(HelperLib::InputManager& inputManager) {
 	return true;
 }
 
-void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]) {
+void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[], double t) {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -196,16 +217,29 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
+	//double t = (clock() % 100) / static_cast<double>(10);
+
+	glm::vec3 a = Bspline(
+		t,
+		movement[current_movment_point % num_of_movement_points],
+		movement[(current_movment_point + 1) % num_of_movement_points],
+		movement[(current_movment_point + 2) % num_of_movement_points],
+		movement[(current_movment_point + 3) % num_of_movement_points]
+	);
+
+	//cout << current_movment_point << endl;
+	//cout << glm::to_string(a) << endl;
+
 	glBindVertexArray(VAO);
 	{
 		glColor3f(1.0, 1.0, 1.0);
 
-		for (GLuint i{ 0 }; i < 10; ++i)
+		for (GLuint i{ 0 }; i < 1; ++i)
 		{
 			// Calculate the model matrix for each object and pass it to shader before drawing
 			glm::mat4 model;
 			GLfloat angle = 2.0f * i * rnd_nums[i];
-			model = glm::translate(model, cubePositions[i] + angle * clock() / 20000000);
+			model = glm::translate(model, a);
 			model = glm::rotate(model, angle * clock() / 2000000, glm::vec3(1.0f, 0.3f, 0.5f));
 
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -310,4 +344,20 @@ GLuint init_texture() {
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind texture when done, so we won't accidentily mess up our texture.
 
 	return texture;
+}
+
+glm::vec3 Bspline(double t, glm::vec3 r0, glm::vec3 r1, glm::vec3 r2, glm::vec3 r3) {
+	glm::vec4 T = glm::vec4(glm::pow(t, 3), glm::pow(t, 2), t, 1);
+
+	double B_mat_data[16] = {
+		-1, 3, -3, 1,
+		3, -6, 3, 0,
+		-3, 0, 3, 0,
+		1, 4, 1, 0
+	};
+	glm::mat4 B = glm::make_mat4(B_mat_data);
+
+	glm::vec4 core = float(1) / 6 * B * T;
+	//std::cout << glm::to_string(core);
+	return (r0*core.x) + (r1*core.y) + (r2*core.z) + (r3*core.a);
 }
