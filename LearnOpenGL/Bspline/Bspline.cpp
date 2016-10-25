@@ -31,6 +31,7 @@ GLfloat pitch = 0.0f;
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 GLfloat fov = 45.0f;
+glm::vec3 a;
 
 // Movement
 int current_movment_point{ 0 };
@@ -190,6 +191,10 @@ bool process_input(HelperLib::InputManager& inputManager) {
 		cameraFront.x -= turnSpeed;
 	if (inputManager.isKeyDown(SDLK_e))
 		cameraFront.x += turnSpeed;
+	if (inputManager.isKeyDown(SDLK_r))
+		cameraPos += cameraSpeed * cameraUp;
+	if (inputManager.isKeyDown(SDLK_f))
+		cameraPos -= cameraSpeed * cameraUp;
 
 	return true;
 }
@@ -215,51 +220,14 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 	// Note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-	// World space positions of our cubes
-	glm::vec3 cubePositions[] = {
-		glm::vec3(0.0f,  0.0f,  0.0f),
-		glm::vec3(2.0f,  5.0f, -15.0f),
-		glm::vec3(-1.5f, -2.2f, -2.5f),
-		glm::vec3(-3.8f, -2.0f, -12.3f),
-		glm::vec3(2.4f, -0.4f, -3.5f),
-		glm::vec3(-1.7f,  3.0f, -7.5f),
-		glm::vec3(1.3f, -2.0f, -2.5f),
-		glm::vec3(1.5f,  2.0f, -2.5f),
-		glm::vec3(1.5f,  0.2f, -1.5f),
-		glm::vec3(-1.3f,  1.0f, -1.5f)
-	};
 
-	//double t = (clock() % 100) / static_cast<double>(10);
-
-	glm::vec3 a = b_spline(
+	a = b_spline(
 		t,
 		movement[current_movment_point % num_of_movement_points],
 		movement[(current_movment_point + 1) % num_of_movement_points],
 		movement[(current_movment_point + 2) % num_of_movement_points],
 		movement[(current_movment_point + 3) % num_of_movement_points]
 	);
-
-	//glBindVertexArray(VAO);
-	//{
-	//	glColor3f(1.0, 1.0, 1.0);
-	//	glm::vec3 direction = b_spline_direction(
-	//		t,
-	//		movement[current_movment_point % num_of_movement_points],
-	//		movement[(current_movment_point + 1) % num_of_movement_points],
-	//		movement[(current_movment_point + 2) % num_of_movement_points],
-	//		movement[(current_movment_point + 3) % num_of_movement_points]
-	//	);
-
-	//	
-	//	// Calculate the model matrix for each object and pass it to shader before drawing
-	//	glm::mat4 model;
-	//	model = glm::translate(model, a);
-	//	model = glm::rotate(model, 0.5f, direction);
-	//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	//	glDrawArrays(GL_TRIANGLES, 0, 36);
-	//	
-	//}
-	//glBindVertexArray(0);
 
 	glBindVertexArray(VAO_path);
 	{
@@ -269,18 +237,16 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 	}
 	glBindVertexArray(0);
 
+	glm::vec3 direction = b_spline_direction(
+		t,
+		movement[current_movment_point % num_of_movement_points],
+		movement[(current_movment_point + 1) % num_of_movement_points],
+		movement[(current_movment_point + 2) % num_of_movement_points],
+		movement[(current_movment_point + 3) % num_of_movement_points]
+	);
 
 	glBindVertexArray(VAO_obj);
 	{
-		glm::vec3 direction = b_spline_direction(
-			t,
-			movement[current_movment_point % num_of_movement_points],
-			movement[(current_movment_point + 1) % num_of_movement_points],
-			movement[(current_movment_point + 2) % num_of_movement_points],
-			movement[(current_movment_point + 3) % num_of_movement_points]
-		);
-
-		
 		// Calculate the model matrix for each object and pass it to shader before drawing
 		glm::mat4 model;
 		model = glm::translate(model, a);
@@ -291,6 +257,13 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 		
 	}
 	glBindVertexArray(0);
+
+	glBegin(GL_LINES);
+	{
+		glVertex3f(direction.x*-1.5, direction.y*-1.5, direction.z*-1.5);
+		glVertex3f(direction.x*1.5, direction.y*1.5, direction.z*1.5);
+	}
+	glEnd();
 }
 
 void swap_buffer(SDL_Window* window) {
@@ -298,70 +271,8 @@ void swap_buffer(SDL_Window* window) {
 }
 
 GLuint init_cubes() {
-	// Set up vertex data (and buffer(s)) and attribute pointers
-	GLfloat vertices[] = {	
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-	};
-
-	GLuint VBO, VAO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-
-	// Bind VAO
-	glBindVertexArray(VAO);
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		// Position attribute
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-		glEnableVertexAttribArray(0);
-		// TexCoord attribute
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(2);
-	}
-	// Unbind VAO
-	glBindVertexArray(0);
+	GLuint VBO{ 0 }, VAO{ 0 };
 
 	glGenVertexArrays(1, &VAO_path);
 	glGenBuffers(1, &VBO_path);
