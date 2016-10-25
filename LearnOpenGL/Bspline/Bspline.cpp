@@ -35,8 +35,12 @@ GLfloat fov = 45.0f;
 // Movement
 int current_movment_point{ 0 };
 int num_of_movement_points;
-double movment_granularity{ 0.001 };
+int curve_points;
+double movment_granularity{ 0.0005 };
 std::vector<glm::vec3> movement;
+
+GLfloat path_thickness{ 3.0f };
+GLuint VBO_path, VAO_path;
 
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
@@ -49,7 +53,8 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 void swap_buffer(SDL_Window* window);
 GLuint init_cubes();
 GLuint init_texture();
-glm::vec3 Bspline(double t, glm::vec3 r0, glm::vec3 r1, glm::vec3 r2, glm::vec3 r3);
+glm::vec3 b_spline(double t, glm::vec3 r0, glm::vec3 r1, glm::vec3 r2, glm::vec3 r3);
+glm::vec3 b_spline_direction(double t, glm::vec3 r0, glm::vec3 r1, glm::vec3 r2, glm::vec3 r3);
 
 using namespace std;
 
@@ -99,16 +104,17 @@ int main(int argc, char** argv) {
 	// Shaders
 	HelperLib::Shader shader("Shaders/textureShading.vert", "Shaders/textureShading.frag");
 
+	// Read movement curve points
+	movement = FileParser::extract_points("assets/movement/path.txt");
+	num_of_movement_points = movement.size();
+
 	// Cubes
 	glEnable(GL_DEPTH_TEST);
 	GLuint VAO = init_cubes();
 	GLuint texutre = init_texture();
 
+	glLineWidth(path_thickness);
 	HelperLib::InputManager inputManager;
-
-	// Read movement curve points
-	movement = FileParser::extract_points("assets/movement/path.txt");
-	num_of_movement_points = movement.size();
 
 	game_loop(window, shader, VAO, texutre, inputManager);
 	atexit(SDL_Quit);
@@ -219,7 +225,7 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 
 	//double t = (clock() % 100) / static_cast<double>(10);
 
-	glm::vec3 a = Bspline(
+	glm::vec3 a = b_spline(
 		t,
 		movement[current_movment_point % num_of_movement_points],
 		movement[(current_movment_point + 1) % num_of_movement_points],
@@ -233,14 +239,21 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 	glBindVertexArray(VAO);
 	{
 		glColor3f(1.0, 1.0, 1.0);
+		glm::vec3 direction = b_spline_direction(
+			t,
+			movement[current_movment_point % num_of_movement_points],
+			movement[(current_movment_point + 1) % num_of_movement_points],
+			movement[(current_movment_point + 2) % num_of_movement_points],
+			movement[(current_movment_point + 3) % num_of_movement_points]
+		);
 
-		for (GLuint i{ 0 }; i < 1; ++i)
+		for (GLuint i{ 9 }; i < 10; ++i)
 		{
 			// Calculate the model matrix for each object and pass it to shader before drawing
 			glm::mat4 model;
 			GLfloat angle = 2.0f * i * rnd_nums[i];
 			model = glm::translate(model, a);
-			model = glm::rotate(model, angle * clock() / 2000000, glm::vec3(1.0f, 0.3f, 0.5f));
+			model = glm::rotate(model, 0.5f, direction);
 
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -249,6 +262,13 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 	}
 	glBindVertexArray(0);
 
+	glBindVertexArray(VAO_path);
+	{
+		glm::mat4 model;
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_LINE_LOOP, 0, curve_points);
+	}
+	glBindVertexArray(0);
 }
 
 void swap_buffer(SDL_Window* window) {
@@ -257,7 +277,7 @@ void swap_buffer(SDL_Window* window) {
 
 GLuint init_cubes() {
 	// Set up vertex data (and buffer(s)) and attribute pointers
-	GLfloat vertices[] = {
+	GLfloat vertices[] = {	
 		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
 		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
@@ -321,6 +341,39 @@ GLuint init_cubes() {
 	// Unbind VAO
 	glBindVertexArray(0);
 
+	glGenVertexArrays(1, &VAO_path);
+	glGenBuffers(1, &VBO_path);
+
+	// Generate curve
+	std::vector<glm::vec3> curve;
+	for (int i{ 0 }; i < num_of_movement_points; ++i) {
+		for (double t{ 0 }; t <= 1.0; t += movment_granularity) {
+			glm::vec3 curve_point = b_spline(
+				t,
+				movement[i % num_of_movement_points],
+				movement[(i + 1) % num_of_movement_points],
+				movement[(i + 2) % num_of_movement_points],
+				movement[(i + 3) % num_of_movement_points]
+			);
+
+			curve.push_back(curve_point);
+		}
+	}
+	curve_points = curve.size();
+
+	// Bind VAO
+	glBindVertexArray(VAO_path);
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, VBO_path);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * curve.size(), &curve.front(), GL_STATIC_DRAW);
+
+		// Position attribute
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+		glEnableVertexAttribArray(0);
+	}
+	// Unbind VAO
+	glBindVertexArray(0);
+
 	return VAO;
 }
 
@@ -346,7 +399,7 @@ GLuint init_texture() {
 	return texture;
 }
 
-glm::vec3 Bspline(double t, glm::vec3 r0, glm::vec3 r1, glm::vec3 r2, glm::vec3 r3) {
+glm::vec3 b_spline(double t, glm::vec3 r0, glm::vec3 r1, glm::vec3 r2, glm::vec3 r3) {
 	glm::vec4 T = glm::vec4(glm::pow(t, 3), glm::pow(t, 2), t, 1);
 
 	double B_mat_data[16] = {
@@ -356,6 +409,21 @@ glm::vec3 Bspline(double t, glm::vec3 r0, glm::vec3 r1, glm::vec3 r2, glm::vec3 
 		1, 4, 1, 0
 	};
 	glm::mat4 B = glm::make_mat4(B_mat_data);
+
+	glm::vec4 core = float(1) / 6 * B * T;
+	//std::cout << glm::to_string(core);
+	return (r0*core.x) + (r1*core.y) + (r2*core.z) + (r3*core.a);
+}
+
+glm::vec3 b_spline_direction(double t, glm::vec3 r0, glm::vec3 r1, glm::vec3 r2, glm::vec3 r3) {
+	glm::vec3 T = glm::vec3(glm::pow(t, 2), t, 1);
+
+	double B_mat_data[12] = {
+		-1, 3, -3, 1,
+		2, -4, 2, 0,
+		-1, 0, 1, 0,
+	};
+	glm::mat3x4 B = glm::make_mat3x4(B_mat_data);
 
 	glm::vec4 core = float(1) / 6 * B * T;
 	//std::cout << glm::to_string(core);

@@ -1,11 +1,6 @@
-﻿Build started 25.10.2016. 12:22:27.
+﻿Build started 25.10.2016. 18:32:23.
      1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Bspline\Bspline.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         E:\Programming\IDE\Visual Studio 2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Bspline.cpp
-         Bspline.cpp
-     1>e:\programming\workspace\projects\learnopengl_tutorial\learnopengl\bspline\bspline.cpp(123): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>e:\programming\workspace\projects\learnopengl_tutorial\learnopengl\bspline\bspline.cpp(129): warning C4244: 'initializing': conversion from 'clock_t' to 'GLfloat', possible loss of data
-       Link:
+     1>Link:
          E:\Programming\IDE\Visual Studio 2015\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\Bspline.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib opengl32.lib glew32.lib SOIL.lib HelperLib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\Bspline.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\Bspline.lib" /MACHINE:X86 Debug\Bspline.obj
      1>SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\SOIL.pdb'; linking object as if no debug info
      1>SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Debug\SOIL.pdb'; linking object as if no debug info
@@ -16,4 +11,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.48
+Time Elapsed 00:00:00.50

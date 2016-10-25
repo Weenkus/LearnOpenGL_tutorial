@@ -1,0 +1,24 @@
+﻿Build started 25.10.2016. 15:59:31.
+     1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Bspline\Bspline.vcxproj" on node 6 (Build target(s)).
+     1>Link:
+         E:\Programming\IDE\Visual Studio 2015\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Release\Bspline.exe" /NOLOGO SDL2.lib SDL2main.lib opengl32.lib glew32.lib SOIL.lib HelperLib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Release\Bspline.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Release\Bspline.lib" /MACHINE:X86 /SAFESEH Release\Bspline.obj
+     1>SOIL.lib(SOIL.obj) : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
+     1>HelperLib.lib(FileParser.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in Bspline.obj
+     1>HelperLib.lib(FileParser.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in Bspline.obj
+     1>HelperLib.lib(InputManager.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in Bspline.obj
+     1>HelperLib.lib(InputManager.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in Bspline.obj
+     1>HelperLib.lib(Shader.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in Bspline.obj
+     1>HelperLib.lib(Shader.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in Bspline.obj
+     1>LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
+     1>HelperLib.lib(FileParser.obj) : error LNK2001: unresolved external symbol __imp___invalid_parameter
+     1>HelperLib.lib(InputManager.obj) : error LNK2001: unresolved external symbol __imp___invalid_parameter
+     1>HelperLib.lib(Shader.obj) : error LNK2001: unresolved external symbol __imp___invalid_parameter
+     1>HelperLib.lib(FileParser.obj) : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>HelperLib.lib(InputManager.obj) : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>HelperLib.lib(Shader.obj) : error LNK2001: unresolved external symbol __imp___CrtDbgReportW
+     1>E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Release\Bspline.exe : fatal error LNK1120: 2 unresolved externals
+     1>Done Building Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Bspline\Bspline.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.49

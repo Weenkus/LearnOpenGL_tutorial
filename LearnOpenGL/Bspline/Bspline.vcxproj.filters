@@ -25,6 +25,9 @@
     <Filter Include="assets\movement">
       <UniqueIdentifier>{29f03d0a-a11f-4411-936a-32b235060f01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets\objetcs">
+      <UniqueIdentifier>{ae3885c8-2375-4b77-96ae-84422822dd98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bspline.cpp">

@@ -1,0 +1,15 @@
+﻿Build started 25.10.2016. 15:57:06.
+     1>Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\HelperLib\HelperLib.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         E:\Programming\IDE\Visual Studio 2015\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Release\HelperLib.dll" /INCREMENTAL:NO /NOLOGO SDL2.lib SDL2main.lib opengl32.lib glew32.lib SOIL.lib HelperLib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Release\HelperLib.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Release\HelperLib.lib" /MACHINE:X86 /SAFESEH /DLL Release\FileParser.obj
+         Release\InputManager.obj
+         Release\Shader.obj
+         Generating code
+         All 126 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+         Finished generating code
+         HelperLib.vcxproj -> E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\Release\HelperLib.dll
+     1>Done Building Project "E:\Programming\Workspace\Projects\LearnOpenGL_tutorial\LearnOpenGL\HelperLib\HelperLib.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.96

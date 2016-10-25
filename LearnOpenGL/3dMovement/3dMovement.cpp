@@ -205,7 +205,8 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 		// Calculate the model matrix for each object and pass it to shader before drawing
 		glm::mat4 model;
 		model = glm::translate(model, cubePositions[i]);
-		GLfloat angle = 2.0f * i * rnd_nums[i];
+
+		GLfloat angle = 2.0f * (i+1) * rnd_nums[i];
 		model = glm::rotate(model, angle * clock() / 2000000, glm::vec3(1.0f, 0.3f, 0.5f));
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
