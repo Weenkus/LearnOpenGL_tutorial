@@ -250,7 +250,7 @@ void render(HelperLib::Shader shader, GLuint VAO, GLuint texture, int rnd_nums[]
 		// Calculate the model matrix for each object and pass it to shader before drawing
 		glm::mat4 model;
 		model = glm::translate(model, a);
-		model = glm::rotate(model, 0.5f, direction);
+		model = glm::rotate(model, 0.4f, direction);
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, obj_vertexies.size() * 3);
